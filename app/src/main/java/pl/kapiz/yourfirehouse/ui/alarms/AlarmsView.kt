@@ -7,4 +7,8 @@ interface AlarmsView : BaseView {
     fun initView()
 
     fun updateData(data: List<AlarmItem>)
+
+    fun hideRefreshing()
+
+    fun showProgress(show: Boolean)
 }

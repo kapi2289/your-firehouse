@@ -3,6 +3,8 @@ package pl.kapiz.yourfirehouse.ui.alarms
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.common.SmoothScrollLinearLayoutManager
@@ -23,7 +25,7 @@ class AlarmsFragment : BaseFragment(), AlarmsView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        presenter.onAttachView(this)
+        presenter.onAttachView(this, context)
     }
 
     override fun initView() {
@@ -31,9 +33,19 @@ class AlarmsFragment : BaseFragment(), AlarmsView {
             layoutManager = SmoothScrollLinearLayoutManager(context)
             adapter = alarmsAdapter
         }
+
+        alarmsSwipeRefresh.setOnRefreshListener { presenter.onSwipeRefresh() }
     }
 
     override fun updateData(data: List<AlarmItem>) {
         alarmsAdapter.updateDataSet(data)
+    }
+
+    override fun hideRefreshing() {
+        alarmsSwipeRefresh.isRefreshing = false
+    }
+
+    override fun showProgress(show: Boolean) {
+        alarmsProgress.visibility = if (show) VISIBLE else GONE
     }
 }

@@ -12,14 +12,21 @@ import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
 import kotlinx.android.synthetic.main.fragment_alarms.*
 import pl.kapiz.yourfirehouse.R
 import pl.kapiz.yourfirehouse.base.BaseFragment
+import javax.inject.Inject
 
 class AlarmsFragment : BaseFragment(), AlarmsView {
 
-    private val presenter = AlarmsPresenter()
+    @Inject
+    lateinit var presenter: AlarmsPresenter
 
-    private val alarmsAdapter = FlexibleAdapter<AbstractFlexibleItem<*>>(null, null, true)
+    @Inject
+    lateinit var alarmsAdapter: FlexibleAdapter<AbstractFlexibleItem<*>>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_alarms, container, false)
     }
 

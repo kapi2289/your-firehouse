@@ -3,8 +3,11 @@ package pl.kapiz.yourfirehouse.data.repositories.alarm
 import io.reactivex.Single
 import org.threeten.bp.LocalDateTime
 import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AlarmRepositoryRemote {
+@Singleton
+class AlarmRepositoryRemote @Inject constructor() {
 
     fun getAlarms(): Single<List<Alarm>> {
         /**

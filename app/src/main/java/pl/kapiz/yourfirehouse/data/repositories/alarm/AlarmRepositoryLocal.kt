@@ -1,25 +1,24 @@
 package pl.kapiz.yourfirehouse.data.repositories.alarm
 
-import android.content.Context
 import io.reactivex.Maybe
-import pl.kapiz.yourfirehouse.App
+import pl.kapiz.yourfirehouse.data.db.dao.AlarmDao
 import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AlarmRepositoryLocal(private val context: Context) {
-    private val database by lazy {
-        (context.applicationContext as App).db.alarmDao
-    }
+@Singleton
+class AlarmRepositoryLocal @Inject constructor(private val alarmDb: AlarmDao) {
 
     fun getAlarms(): Maybe<List<Alarm>> {
-        return database.loadAll()
+        return alarmDb.loadAll()
             .filter { it.isNotEmpty() }
     }
 
     fun saveAlarms(alarms: List<Alarm>) {
-        database.addAll(alarms)
+        alarmDb.addAll(alarms)
     }
 
     fun deleteAlarms(alarms: List<Alarm>) {
-        database.deleteAll(alarms)
+        alarmDb.deleteAll(alarms)
     }
 }

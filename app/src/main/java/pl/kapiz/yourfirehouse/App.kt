@@ -1,23 +1,25 @@
 package pl.kapiz.yourfirehouse
 
-import pl.kapiz.yourfirehouse.data.db.AppDatabase
-import pl.kapiz.yourfirehouse.data.repositories.alarm.AlarmRepository
+import android.content.Context
+import androidx.multidex.MultiDex
+import com.jakewharton.threetenabp.AndroidThreeTen
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
+import pl.kapiz.yourfirehouse.di.DaggerAppComponent
 
-class App : androidx.multidex.MultiDexApplication() {
+class App : DaggerApplication() {
 
-    lateinit var db: AppDatabase
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
 
-    lateinit var alarmRepository: AlarmRepository
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.factory().create(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
-
-        db = AppDatabase.newInstance(this)
-
-        /**
-         * TEMPORARY
-         * TODO: Make API
-         */
-        alarmRepository = AlarmRepository(this)
+        AndroidThreeTen.init(this)
     }
 }

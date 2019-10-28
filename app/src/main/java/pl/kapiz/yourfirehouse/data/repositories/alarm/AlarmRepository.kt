@@ -1,15 +1,17 @@
 package pl.kapiz.yourfirehouse.data.repositories.alarm
 
-import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.Single
 import pl.kapiz.yourfirehouse.data.db.entities.Alarm
 import java.net.UnknownHostException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AlarmRepository(context: Context) {
-
-    private val local = AlarmRepositoryLocal(context)
-    private val remote = AlarmRepositoryRemote()
+@Singleton
+class AlarmRepository @Inject constructor(
+    private val local: AlarmRepositoryLocal,
+    private val remote: AlarmRepositoryRemote
+) {
 
     fun getAlarms(forceRefresh: Boolean = false): Single<List<Alarm>> {
         return local.getAlarms().filter { !forceRefresh }

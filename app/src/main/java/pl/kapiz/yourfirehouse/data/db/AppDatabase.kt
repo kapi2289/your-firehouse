@@ -36,5 +36,5 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract val alarmDao: AlarmDao
+    abstract fun alarmDao(): AlarmDao
 }

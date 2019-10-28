@@ -6,7 +6,9 @@ import androidx.room.Insert
 import androidx.room.Query
 import io.reactivex.Maybe
 import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import javax.inject.Singleton
 
+@Singleton
 @Dao
 interface AlarmDao {
 

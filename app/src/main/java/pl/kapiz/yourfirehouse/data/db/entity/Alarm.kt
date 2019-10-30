@@ -1,7 +1,8 @@
-package pl.kapiz.yourfirehouse.data.db.entities
+package pl.kapiz.yourfirehouse.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import org.threeten.bp.LocalDateTime
 
 @Entity(tableName = "alarms")
@@ -12,6 +13,7 @@ data class Alarm(
 
     val description: String,
 
+    @SerializedName("aquired") // Typo in REST API
     val acquired: LocalDateTime,
 
     val expired: LocalDateTime

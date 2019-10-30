@@ -1,8 +1,8 @@
-package pl.kapiz.yourfirehouse.data.repositories.alarm
+package pl.kapiz.yourfirehouse.data.repository.alarm
 
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.Single
-import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 import java.net.UnknownHostException
 import javax.inject.Inject
 import javax.inject.Singleton

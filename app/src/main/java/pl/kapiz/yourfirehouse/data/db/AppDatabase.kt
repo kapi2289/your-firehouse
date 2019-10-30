@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase.JournalMode.TRUNCATE
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import pl.kapiz.yourfirehouse.data.db.dao.AlarmDao
-import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 
 @Database(
     entities = [

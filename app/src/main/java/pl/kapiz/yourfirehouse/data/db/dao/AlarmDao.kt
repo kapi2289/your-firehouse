@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import io.reactivex.Maybe
-import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 import javax.inject.Singleton
 
 @Singleton

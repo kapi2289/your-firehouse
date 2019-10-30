@@ -1,6 +1,7 @@
 package pl.kapiz.yourfirehouse.di
 
 import android.content.Context
+import androidx.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import eu.davidea.flexibleadapter.FlexibleAdapter
@@ -17,4 +18,9 @@ internal class AppModule {
 
     @Provides
     fun provideFlexibleAdapter() = FlexibleAdapter<AbstractFlexibleItem<*>>(null, null, true)
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
 }

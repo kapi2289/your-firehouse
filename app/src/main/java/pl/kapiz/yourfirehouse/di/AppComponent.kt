@@ -5,6 +5,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import pl.kapiz.yourfirehouse.App
 import pl.kapiz.yourfirehouse.data.RepositoryModule
+import pl.kapiz.yourfirehouse.data.api.ApiModule
 import javax.inject.Singleton
 
 @Singleton
@@ -13,7 +14,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         BindingModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        ApiModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

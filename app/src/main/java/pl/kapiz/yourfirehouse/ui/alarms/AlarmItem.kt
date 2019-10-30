@@ -9,7 +9,7 @@ import eu.davidea.flexibleadapter.items.IFlexible
 import eu.davidea.viewholders.FlexibleViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import pl.kapiz.yourfirehouse.R
-import pl.kapiz.yourfirehouse.data.db.entities.Alarm
+import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 
 class AlarmItem(val alarm: Alarm) : AbstractFlexibleItem<AlarmItem.ViewHolder>() {
     override fun bindViewHolder(

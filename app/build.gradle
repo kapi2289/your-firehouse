@@ -16,6 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -93,11 +94,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:3.12.6"
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    api "io.jsonwebtoken:jjwt-api:$jwt"
-    runtimeOnly "io.jsonwebtoken:jjwt-impl:$jwt"
-    runtimeOnly("io.jsonwebtoken:jjwt-orgjson:$jwt") {
-        exclude group: 'org.json', module: 'json'
-    }
+    implementation 'com.auth0:java-jwt:3.8.3'
 
     implementation "androidx.preference:preference-ktx:1.1.0"
 

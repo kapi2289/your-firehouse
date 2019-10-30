@@ -16,5 +16,6 @@ data class Alarm(
     @SerializedName("aquired") // Typo in REST API
     val acquired: LocalDateTime,
 
+    @SerializedName("expiration")
     val expired: LocalDateTime
 )

@@ -10,11 +10,19 @@ class PreferencesRepository @Inject constructor(
 
     var email: String?
         get() = preferences.getString("email", null)
-        set(value) = preferences.edit { putString("edit", value) }
+        set(value) = preferences.edit { putString("email", value) }
 
     var secret: String?
         get() = preferences.getString("secret", null)
         set(value) = preferences.edit { putString("secret", value) }
+
+    var userName: String?
+        get() = preferences.getString("userName", null)
+        set(value) = preferences.edit { putString("userName", value) }
+
+    var ouName: String?
+        get() = preferences.getString("ouName", null)
+        set(value) = preferences.edit { putString("ouName", value) }
 
     var ouId: Long
         get() = preferences.getLong("ouId", -1)

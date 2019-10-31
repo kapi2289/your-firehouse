@@ -1,7 +1,10 @@
 package pl.kapiz.yourfirehouse.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -10,14 +13,23 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import dagger.android.support.DaggerAppCompatActivity
 import pl.kapiz.yourfirehouse.R
+import pl.kapiz.yourfirehouse.base.BaseActivity
+import pl.kapiz.yourfirehouse.ui.login.LoginActivity
+import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), MainView {
+class MainActivity : BaseActivity<MainPresenter>(), MainView {
+
+    @Inject
+    override lateinit var presenter: MainPresenter
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val presenter = MainPresenter()
+    companion object {
+        fun getStartIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +37,7 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        presenter.onAttachView(this, baseContext)
+        presenter.onAttachView(this, this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,8 +63,12 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
         navView.setupWithNavController(navController)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDetachView()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return presenter.onOptionsItemSelected(item)
+    }
+
+    override fun openLoginActivity() {
+        startActivity(LoginActivity.getStartIntent(this))
+        finish()
     }
 }

@@ -17,23 +17,22 @@ class JWTInterceptor @Inject constructor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val jwt = generateJWT()
 
-        return chain.proceed(
-            request.newBuilder()
-                .addHeader("JWT", jwt)
-                .build()
-        )
+        return if (preferences.secret != null) {
+            val jwt = generateJWT()
+
+            chain.proceed(
+                request.newBuilder()
+                    .addHeader("JWT", jwt)
+                    .build()
+            )
+        } else {
+            chain.proceed(request)
+        }
     }
 
     private fun generateJWT(): String {
         val time: Long = System.currentTimeMillis()
-
-        /* val secret = MessageDigest.getInstance("SHA-1").run {
-            reset()
-            update(password.toByteArray(UTF_8))
-            Base64.encodeToString(digest(), Base64.NO_WRAP)
-        } */
 
         val alg = Algorithm.HMAC256(preferences.secret ?: throw NoCredentialsGivenException())
 

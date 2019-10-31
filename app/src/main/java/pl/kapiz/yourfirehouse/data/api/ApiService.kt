@@ -1,8 +1,8 @@
 package pl.kapiz.yourfirehouse.data.api
 
 import io.reactivex.Single
+import pl.kapiz.yourfirehouse.data.api.pojo.User
 import pl.kapiz.yourfirehouse.data.db.entity.Alarm
-import pl.kapiz.yourfirehouse.data.db.entity.User
 import retrofit2.http.GET
 import retrofit2.http.Query
 import javax.inject.Singleton

@@ -1,15 +1,15 @@
 package pl.kapiz.yourfirehouse.ui.alarms
 
 import android.content.Context
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import pl.kapiz.yourfirehouse.base.BasePresenter
 import pl.kapiz.yourfirehouse.data.repository.alarm.AlarmRepository
+import pl.kapiz.yourfirehouse.utils.SchedulersProvider
 import timber.log.Timber
 import javax.inject.Inject
 
 class AlarmsPresenter @Inject constructor(
-    private val alarmRepository: AlarmRepository
+    private val alarmRepository: AlarmRepository,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<AlarmsView>() {
 
     override fun onAttachView(view: AlarmsView, context: Context?) {
@@ -26,8 +26,8 @@ class AlarmsPresenter @Inject constructor(
 
         disposable.add(
             alarmRepository.getAlarms(forceRefresh)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulers.backgroundThread)
+                .observeOn(schedulers.mainThread)
                 .doFinally {
                     view?.run {
                         showProgress(false)

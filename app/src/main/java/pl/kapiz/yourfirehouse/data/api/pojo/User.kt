@@ -1,13 +1,9 @@
-package pl.kapiz.yourfirehouse.data.db.entity
+package pl.kapiz.yourfirehouse.data.api.pojo
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "users")
 data class User(
 
-    @PrimaryKey
     val id: Long,
 
     @SerializedName("bsisOuId")
@@ -15,6 +11,8 @@ data class User(
 
     @SerializedName("bsisOuName")
     val ouName: String,
+
+    val name: String,
 
     val firstName: String,
 

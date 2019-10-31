@@ -8,10 +8,10 @@ import pl.kapiz.yourfirehouse.R
 import pl.kapiz.yourfirehouse.base.BaseFragment
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment(), HomeView {
+class HomeFragment : BaseFragment<HomePresenter>(), HomeView {
 
     @Inject
-    lateinit var presenter: HomePresenter
+    override lateinit var presenter: HomePresenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

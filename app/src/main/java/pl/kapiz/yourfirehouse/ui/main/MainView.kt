@@ -5,4 +5,6 @@ import pl.kapiz.yourfirehouse.base.BaseView
 interface MainView : BaseView {
 
     fun initView()
+
+    fun openLoginActivity()
 }

@@ -14,10 +14,10 @@ import pl.kapiz.yourfirehouse.R
 import pl.kapiz.yourfirehouse.base.BaseFragment
 import javax.inject.Inject
 
-class AlarmsFragment : BaseFragment(), AlarmsView {
+class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
 
     @Inject
-    lateinit var presenter: AlarmsPresenter
+    override lateinit var presenter: AlarmsPresenter
 
     @Inject
     lateinit var alarmsAdapter: FlexibleAdapter<AbstractFlexibleItem<*>>

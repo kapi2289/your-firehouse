@@ -13,7 +13,7 @@ class AlarmRepositoryRemote @Inject constructor(
     private val preferences: PreferencesRepository
 ) {
 
-    fun getAlarms(count: Int = 3, offset: Int = 0): Single<List<Alarm>> {
+    fun getAlarms(count: Int = 10, offset: Int = 0): Single<List<Alarm>> {
         return api.getAlarms(preferences.ouId, count, offset)
     }
 }

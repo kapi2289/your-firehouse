@@ -9,6 +9,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import pl.kapiz.yourfirehouse.data.db.dao.AlarmDao
 import pl.kapiz.yourfirehouse.data.db.entity.Alarm
+import pl.kapiz.yourfirehouse.data.db.migrations.Migration1_2
 
 @Database(
     entities = [
@@ -20,10 +21,12 @@ import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
-        const val VERSION_SCHEMA = 1
+        const val VERSION_SCHEMA = 2
 
         private fun getMigrations(): Array<Migration> {
-            return arrayOf()
+            return arrayOf(
+                Migration1_2()
+            )
         }
 
         fun newInstance(context: Context): AppDatabase {

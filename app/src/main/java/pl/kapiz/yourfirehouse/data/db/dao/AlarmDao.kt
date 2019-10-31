@@ -15,7 +15,7 @@ interface AlarmDao {
     @Insert
     fun addAll(alarms: List<Alarm>)
 
-    @Query("SELECT * FROM alarms")
+    @Query("SELECT * FROM alarms ORDER BY acquired DESC")
     fun loadAll(): Maybe<List<Alarm>>
 
     @Query("SELECT * FROM alarms WHERE id = :id")

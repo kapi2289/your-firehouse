@@ -11,7 +11,7 @@ data class Alarm(
     @PrimaryKey
     val id: Int,
 
-    val description: String,
+    val description: String?,
 
     @SerializedName("aquired") // Typo in REST API
     val acquired: LocalDateTime,

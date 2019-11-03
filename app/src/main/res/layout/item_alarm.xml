@@ -4,18 +4,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".ui.alarms.AlarmItem">
+    tools:context=".ui.alarms.AlarmsAdapter">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ALARM!"
-        android:textStyle="bold" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/alarmItemDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Pożar lasu" />
+        <ImageView
+            android:id="@+id/alarmItemIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_menu_alarms" />
+
+        <TextView
+            android:id="@+id/alarmItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_toEndOf="@id/alarmItemIcon"
+            android:layout_toRightOf="@id/alarmItemIcon"
+            android:text="@string/alarm_item_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/alarmItemDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/alarmItemTitle"
+            android:layout_toEndOf="@id/alarmItemIcon"
+            android:layout_toRightOf="@id/alarmItemIcon"
+            tools:text="Pożar lasu" />
+
+        <TextView
+            android:id="@+id/alarmItemDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            tools:text="5 mins ago" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/tile_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:background="?android:attr/dividerVertical" />
 </LinearLayout>

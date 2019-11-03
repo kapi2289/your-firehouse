@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
-import eu.davidea.flexibleadapter.FlexibleAdapter
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
 import pl.kapiz.yourfirehouse.App
 import pl.kapiz.yourfirehouse.utils.SchedulersProvider
 import javax.inject.Singleton
@@ -17,9 +15,6 @@ internal class AppModule {
     @Singleton
     @Provides
     fun provideContext(app: App): Context = app
-
-    @Provides
-    fun provideFlexibleAdapter() = FlexibleAdapter<AbstractFlexibleItem<*>>(null, null, true)
 
     @Singleton
     @Provides

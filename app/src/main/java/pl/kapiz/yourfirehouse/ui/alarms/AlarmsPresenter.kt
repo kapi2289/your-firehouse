@@ -35,11 +35,7 @@ class AlarmsPresenter @Inject constructor(
                     }
                 }
                 .subscribe({
-                    view?.run {
-                        updateData(it.map {
-                            AlarmItem(it)
-                        })
-                    }
+                    view?.updateData(it)
                 }) {
                     Timber.e(it)
                 }

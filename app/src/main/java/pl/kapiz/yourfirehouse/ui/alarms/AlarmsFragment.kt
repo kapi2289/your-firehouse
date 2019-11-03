@@ -6,12 +6,12 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import eu.davidea.flexibleadapter.FlexibleAdapter
-import eu.davidea.flexibleadapter.common.SmoothScrollLinearLayoutManager
-import eu.davidea.flexibleadapter.items.AbstractFlexibleItem
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_alarms.*
 import pl.kapiz.yourfirehouse.R
 import pl.kapiz.yourfirehouse.base.BaseFragment
+import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 import javax.inject.Inject
 
 class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
@@ -19,8 +19,9 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
     @Inject
     override lateinit var presenter: AlarmsPresenter
 
-    @Inject
-    lateinit var alarmsAdapter: FlexibleAdapter<AbstractFlexibleItem<*>>
+    private lateinit var alarmsAdapter: RecyclerView.Adapter<*>
+
+    private val alarms = mutableListOf<Alarm>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,16 +37,22 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
     }
 
     override fun initView() {
+        alarmsAdapter = AlarmsAdapter(alarms)
+
         alarmsRecycler.apply {
-            layoutManager = SmoothScrollLinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context)
             adapter = alarmsAdapter
         }
 
         alarmsSwipeRefresh.setOnRefreshListener { presenter.onSwipeRefresh() }
     }
 
-    override fun updateData(data: List<AlarmItem>) {
-        alarmsAdapter.updateDataSet(data)
+    override fun updateData(data: List<Alarm>) {
+        alarms.apply {
+            clear()
+            addAll(data)
+        }
+        alarmsAdapter.notifyDataSetChanged()
     }
 
     override fun hideRefreshing() {

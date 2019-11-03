@@ -2,6 +2,7 @@ package pl.kapiz.yourfirehouse.ui.alarms
 
 import android.content.Context
 import pl.kapiz.yourfirehouse.base.BasePresenter
+import pl.kapiz.yourfirehouse.data.db.entity.Alarm
 import pl.kapiz.yourfirehouse.data.repository.alarm.AlarmRepository
 import pl.kapiz.yourfirehouse.utils.SchedulersProvider
 import timber.log.Timber
@@ -44,5 +45,9 @@ class AlarmsPresenter @Inject constructor(
 
     fun onSwipeRefresh() {
         loadData(true)
+    }
+
+    fun onItemClickListener(alarm: Alarm) {
+        view?.showAlarmDetailsDialog(alarm)
     }
 }

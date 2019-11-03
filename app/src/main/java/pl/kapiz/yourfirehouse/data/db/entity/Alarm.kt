@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import org.threeten.bp.LocalDateTime
+import java.io.Serializable
 
 @Entity(tableName = "alarms")
 data class Alarm(
@@ -18,4 +19,5 @@ data class Alarm(
 
     @SerializedName("expiration")
     val expired: LocalDateTime
-)
+
+) : Serializable

@@ -7,7 +7,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_alarms.*
 import pl.kapiz.yourfirehouse.R
 import pl.kapiz.yourfirehouse.base.BaseFragment
@@ -19,7 +18,8 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
     @Inject
     override lateinit var presenter: AlarmsPresenter
 
-    private lateinit var alarmsAdapter: RecyclerView.Adapter<*>
+    @Inject
+    lateinit var alarmsAdapter: AlarmsAdapter
 
     private val alarms = mutableListOf<Alarm>()
 
@@ -37,7 +37,9 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
     }
 
     override fun initView() {
-        alarmsAdapter = AlarmsAdapter(alarms)
+        alarmsAdapter.apply {
+            onItemClickListener = presenter::onItemClickListener
+        }
 
         alarmsRecycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -48,11 +50,13 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
     }
 
     override fun updateData(data: List<Alarm>) {
-        alarms.apply {
-            clear()
-            addAll(data)
+        alarmsAdapter.run {
+            alarms.apply {
+                clear()
+                addAll(data)
+            }
+            notifyDataSetChanged()
         }
-        alarmsAdapter.notifyDataSetChanged()
     }
 
     override fun hideRefreshing() {
@@ -61,5 +65,11 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
 
     override fun showProgress(show: Boolean) {
         alarmsProgress.visibility = if (show) VISIBLE else GONE
+    }
+
+    override fun showAlarmDetailsDialog(alarm: Alarm) {
+        fragmentManager?.let {
+            AlarmDetailsDialog.newInstance(alarm).show(it, "AlarmDetailsDialog")
+        }
     }
 }

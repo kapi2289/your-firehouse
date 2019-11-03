@@ -12,4 +12,6 @@ interface AlarmsView : BaseView {
     fun hideRefreshing()
 
     fun showProgress(show: Boolean)
+
+    fun showAlarmDetailsDialog(alarm: Alarm)
 }

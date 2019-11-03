@@ -8,9 +8,7 @@ import org.threeten.bp.LocalDateTime
 class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
     override fun write(writer: JsonWriter?, value: LocalDateTime?) {}
 
-    override fun read(reader: JsonReader?): LocalDateTime? {
-        return reader?.let {
-            LocalDateTime.parse(it.nextString())
-        }
-    }
+    override fun read(reader: JsonReader?): LocalDateTime? =
+        LocalDateTime.parse(reader?.nextString())
 }
+

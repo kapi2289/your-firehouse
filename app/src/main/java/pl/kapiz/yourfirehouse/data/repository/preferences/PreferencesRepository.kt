@@ -27,4 +27,12 @@ class PreferencesRepository @Inject constructor(
     var ouId: Long
         get() = preferences.getLong("ouId", -1)
         set(value) = preferences.edit { putLong("ouId", value) }
+
+    var ouLatitude: Float
+        get() = preferences.getFloat("ouLatitude", -1f)
+        set(value) = preferences.edit { putFloat("ouLatitude", value) }
+
+    var ouLongitude: Float
+        get() = preferences.getFloat("ouLongitude", -1f)
+        set(value) = preferences.edit { putFloat("ouLongitude", value) }
 }

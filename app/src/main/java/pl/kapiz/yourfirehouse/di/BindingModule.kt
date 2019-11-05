@@ -8,6 +8,7 @@ import pl.kapiz.yourfirehouse.ui.alarms.AlarmsFragment
 import pl.kapiz.yourfirehouse.ui.home.HomeFragment
 import pl.kapiz.yourfirehouse.ui.login.LoginActivity
 import pl.kapiz.yourfirehouse.ui.main.MainActivity
+import pl.kapiz.yourfirehouse.ui.map.MapFragment
 import pl.kapiz.yourfirehouse.ui.splash.SplashActivity
 
 @Module
@@ -41,4 +42,8 @@ internal abstract class BindingModule {
     @PerFragment
     @ContributesAndroidInjector
     abstract fun bindAlarmsFragment(): AlarmsFragment
+
+    @PerFragment
+    @ContributesAndroidInjector
+    abstract fun bindMapFragment(): MapFragment
 }

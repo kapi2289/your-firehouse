@@ -12,6 +12,12 @@ data class User(
     @SerializedName("bsisOuName")
     val ouName: String,
 
+    @SerializedName("bsisOuLatitude")
+    val ouLatitude: Float,
+
+    @SerializedName("bsisOuLongitude")
+    val ouLongitude: Float,
+
     val name: String,
 
     val firstName: String,

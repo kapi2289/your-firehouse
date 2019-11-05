@@ -21,8 +21,6 @@ class AlarmsFragment : BaseFragment<AlarmsPresenter>(), AlarmsView {
     @Inject
     lateinit var alarmsAdapter: AlarmsAdapter
 
-    private val alarms = mutableListOf<Alarm>()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

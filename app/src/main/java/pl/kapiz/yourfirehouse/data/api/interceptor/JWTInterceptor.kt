@@ -1,12 +1,13 @@
 package pl.kapiz.yourfirehouse.data.api.interceptor
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
+import android.util.Base64
+import com.google.gson.JsonObject
 import okhttp3.Interceptor
 import okhttp3.Response
 import pl.kapiz.yourfirehouse.data.api.NoCredentialsGivenException
 import pl.kapiz.yourfirehouse.data.repository.preferences.PreferencesRepository
-import java.util.*
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,17 +33,37 @@ class JWTInterceptor @Inject constructor(
     }
 
     private fun generateJWT(): String {
-        val time: Long = System.currentTimeMillis()
+        val time: Long = System.currentTimeMillis() / 1000
 
-        val alg = Algorithm.HMAC256(preferences.secret ?: throw NoCredentialsGivenException())
+        val header = JsonObject().apply {
+            addProperty("alg", "HS256")
+            addProperty("typ", "JWT")
+        }.toString().toBase64()
 
-        return JWT.create()
-            .withIssuer("https://terminal.eremiza.abakus.net.pl")
-            .withAudience("https://api.eremiza.abakus.net.pl")
-            .withSubject(preferences.email ?: throw NoCredentialsGivenException())
-            .withExpiresAt(Date(time + 180000))
-            .withIssuedAt(Date(time))
-            .withNotBefore(Date(time - 60000))
-            .sign(alg)
+        val payload = JsonObject().apply {
+            addProperty("iss", "https://terminal.eremiza.abakus.net.pl")
+            addProperty("aud", "https://api.eremiza.abakus.net.pl")
+            addProperty("sub", preferences.email ?: throw NoCredentialsGivenException())
+            addProperty("exp", time + 180)
+            addProperty("iat", time)
+            addProperty("nbf", time - 60)
+        }.toString().toBase64()
+
+        val signature = Mac.getInstance("HmacSHA256").apply {
+            init(
+                SecretKeySpec(
+                    preferences.secret?.toByteArray() ?: throw NoCredentialsGivenException(),
+                    algorithm
+                )
+            )
+            update("$header.$payload".toByteArray())
+        }.doFinal().toBase64()
+
+        return "$header.$payload.$signature"
     }
+
+    private fun ByteArray.toBase64(): String =
+        Base64.encodeToString(this, Base64.URL_SAFE or Base64.NO_WRAP or Base64.NO_PADDING)
+
+    private fun String.toBase64(): String = toByteArray().toBase64()
 }

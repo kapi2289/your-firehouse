@@ -21,6 +21,8 @@ class LoginRepository @Inject constructor(
                 ouId = it.ouId
                 ouName = it.ouName
                 userName = it.name
+                ouLatitude = it.ouLatitude
+                ouLongitude = it.ouLongitude
             }
         }
     }
